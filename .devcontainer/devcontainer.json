@@ -1,0 +1,43 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/go
+{
+	"name": "Go",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	// "image": "mcr.microsoft.com/devcontainers/go:dev-1.19-buster",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": "..",
+		"cacheFrom": "mcr.microsoft.com/devcontainers/go",
+		"options": [
+			"--add-host=host.docker.internal:host-gateway"
+		],
+		"runArgs": [
+			"--add-host=host.docker.internal:host-gateway"
+		]
+	},
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {},
+	// "containerUser": "root",
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	"onCreateCommand": {},
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": {},
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root",
+	"containerEnv": {},
+	"remoteEnv": {},
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"golang.go"
+			]
+		}
+	},
+	"mounts": [
+		"source=${localEnv:HOME}/.cache,target=/home/vscode/.cache,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.config/go/env,target=/home/vscode/.config/go/env,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/go/pkg/mod,target=/home/vscode/go/pkg/mod,type=bind,consistency=cached"
+	]
+}
