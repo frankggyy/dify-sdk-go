@@ -40,6 +40,10 @@ func (api *API) ChatMessagesStream(ctx context.Context, req *ChatMessageRequest)
 		return nil, err
 	}
 
+	if httpResp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("API request failed with status %s: %s", httpResp.Status, readResponseBody(httpResp.Body))
+	}
+
 	streamChannel := make(chan ChatMessageStreamChannelResponse)
 	go api.chatMessagesStreamHandle(ctx, httpResp, streamChannel)
 	return streamChannel, nil
