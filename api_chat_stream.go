@@ -34,7 +34,7 @@ func (api *API) ChatMessagesStreamRaw(ctx context.Context, req *ChatMessageReque
 	return api.c.sendRequest(httpReq)
 }
 
-func (api *API) ChatMessagesStream(ctx context.Context, req *ChatMessageRequest) (chan ChatMessageStreamChannelResponse, error) {
+func (api *API) ChatMessagesStream(ctx context.Context, req *ChatMessageRequest) (<-chan ChatMessageStreamChannelResponse, error) {
 	httpResp, err := api.ChatMessagesStreamRaw(ctx, req)
 	if err != nil {
 		return nil, err
@@ -49,7 +49,7 @@ func (api *API) ChatMessagesStream(ctx context.Context, req *ChatMessageRequest)
 	return streamChannel, nil
 }
 
-func (api *API) chatMessagesStreamHandle(ctx context.Context, resp *http.Response, streamChannel chan ChatMessageStreamChannelResponse) {
+func (api *API) chatMessagesStreamHandle(ctx context.Context, resp *http.Response, streamChannel chan<- ChatMessageStreamChannelResponse) {
 	defer resp.Body.Close()
 	defer close(streamChannel)
 

@@ -28,7 +28,7 @@ func TestApi3(t *testing.T) {
 	ctx := context.Background()
 
 	var (
-		ch  = make(chan dify.ChatMessageStreamChannelResponse)
+		ch  = make(<-chan dify.ChatMessageStreamChannelResponse)
 		err error
 	)
 
